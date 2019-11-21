@@ -18,13 +18,13 @@ class DatabaseProvider(private val context: Context) {
     }
 
     // CREATE TABLE Statement.
-    private val CREATE_TABLE = "CREATE TABLE ${DebtEntry.TABLE_NAME} ("              +
-                                   "${BaseColumns._ID} integer primary key,"         +
-                                   "${DebtEntry.COLUMN_NAME} nvarchar,"              +
-                                   "${DebtEntry.COLUMN_AMOUNT} real not null,"       +
-                                   "${DebtEntry.COLUMN_CURRENCY} nvarchar not null," +
-                                   "${DebtEntry.COLUMN_DATE} integer,"               +
-                                   "${DebtEntry.COLUMN_OWED} boolean)";
+    private val CREATE_TABLE = "CREATE TABLE ${DebtEntry.TABLE_NAME} ("          +
+                               "${BaseColumns._ID} integer primary key,"         +
+                               "${DebtEntry.COLUMN_NAME} nvarchar,"              +
+                               "${DebtEntry.COLUMN_AMOUNT} real not null,"       +
+                               "${DebtEntry.COLUMN_CURRENCY} nvarchar not null," +
+                               "${DebtEntry.COLUMN_DATE} integer,"               +
+                               "${DebtEntry.COLUMN_OWED} boolean)";
     // DROP TABLE statement.
     private val DROP_TABLE = "DROP TABLE IF EXISTS ${DebtEntry.TABLE_NAME}";
 
