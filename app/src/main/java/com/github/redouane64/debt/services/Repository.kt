@@ -18,14 +18,14 @@ class Repository(context: Context) : BaseRepository<DebtItem> {
         val database = databaseHelper!!.writableDatabase;
 
         val values = ContentValues().apply {
-            put(DatabaseProvider.DebtEntry.COLUMN_NAME, entity.subject);
-            put(DatabaseProvider.DebtEntry.COLUMN_AMOUNT, entity.amount);
-            put(DatabaseProvider.DebtEntry.COLUMN_CURRENCY, entity.currency);
-            put(DatabaseProvider.DebtEntry.COLUMN_DATE, entity.date);
-            put(DatabaseProvider.DebtEntry.COLUMN_OWED, entity.owed);
+            put(DebtItem.COLUMN_NAME, entity.subject);
+            put(DebtItem.COLUMN_AMOUNT, entity.amount);
+            put(DebtItem.COLUMN_CURRENCY, entity.currency);
+            put(DebtItem.COLUMN_DATE, entity.date);
+            put(DebtItem.COLUMN_OWED, entity.owed);
         };
 
-        database.insert(DatabaseProvider.DebtEntry.TABLE_NAME, null, values);
+        database.insert(DebtItem.TABLE_NAME, null, values);
         database.close();
     }
 
@@ -33,7 +33,7 @@ class Repository(context: Context) : BaseRepository<DebtItem> {
         val database = databaseHelper!!.writableDatabase;
 
         val delRow = database.delete(
-            DatabaseProvider.DebtEntry.TABLE_NAME,
+            DebtItem.TABLE_NAME,
             "${BaseColumns._ID} = ?",
             arrayOf(id.toString())
         );
@@ -45,7 +45,7 @@ class Repository(context: Context) : BaseRepository<DebtItem> {
         val database = databaseHelper!!.readableDatabase;
 
         val cursor = database.query(
-            DatabaseProvider.DebtEntry.TABLE_NAME,
+            DebtItem.TABLE_NAME,
             null,
             null,
             null,
@@ -59,11 +59,11 @@ class Repository(context: Context) : BaseRepository<DebtItem> {
         with(cursor) {
             while (cursor.moveToNext()) {
                 val item = DebtItem(
-                    getString(cursor.getColumnIndex(DatabaseProvider.DebtEntry.COLUMN_NAME)),
-                    getFloat(cursor.getColumnIndex(DatabaseProvider.DebtEntry.COLUMN_AMOUNT)),
-                    getString(cursor.getColumnIndex(DatabaseProvider.DebtEntry.COLUMN_CURRENCY)),
-                    getInt(cursor.getColumnIndex(DatabaseProvider.DebtEntry.COLUMN_OWED)),
-                    getLong(cursor.getColumnIndex(DatabaseProvider.DebtEntry.COLUMN_DATE))
+                    getString(cursor.getColumnIndex(DebtItem.COLUMN_NAME)),
+                    getFloat(cursor.getColumnIndex(DebtItem.COLUMN_AMOUNT)),
+                    getString(cursor.getColumnIndex(DebtItem.COLUMN_CURRENCY)),
+                    getInt(cursor.getColumnIndex(DebtItem.COLUMN_OWED)),
+                    getLong(cursor.getColumnIndex(DebtItem.COLUMN_DATE))
                 ).also {
                     it.id = getInt(cursor.getColumnIndex(BaseColumns._ID))
                 };

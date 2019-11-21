@@ -4,29 +4,20 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
+import com.github.redouane64.debt.models.DebtItem
 
 class DatabaseProvider(private val context: Context) {
 
-    // DatabaseProvider debt table and column names.
-    public object DebtEntry : BaseColumns {
-        const val TABLE_NAME = "debt";
-        const val COLUMN_NAME = "subject_name";
-        const val COLUMN_AMOUNT = "amount";
-        const val COLUMN_CURRENCY = "currency";
-        const val COLUMN_OWED = "owed";
-        const val COLUMN_DATE = "date";
-    }
-
     // CREATE TABLE Statement.
-    private val CREATE_TABLE = "CREATE TABLE ${DebtEntry.TABLE_NAME} ("          +
-                               "${BaseColumns._ID} integer primary key,"         +
-                               "${DebtEntry.COLUMN_NAME} nvarchar,"              +
-                               "${DebtEntry.COLUMN_AMOUNT} real not null,"       +
-                               "${DebtEntry.COLUMN_CURRENCY} nvarchar not null," +
-                               "${DebtEntry.COLUMN_DATE} integer,"               +
-                               "${DebtEntry.COLUMN_OWED} boolean)";
+    private val CREATE_TABLE = "CREATE TABLE ${DebtItem.TABLE_NAME} ("          +
+                               "${BaseColumns._ID} integer primary key,"        +
+                               "${DebtItem.COLUMN_NAME} nvarchar,"              +
+                               "${DebtItem.COLUMN_AMOUNT} real not null,"       +
+                               "${DebtItem.COLUMN_CURRENCY} nvarchar not null," +
+                               "${DebtItem.COLUMN_DATE} integer,"               +
+                               "${DebtItem.COLUMN_OWED} boolean)";
     // DROP TABLE statement.
-    private val DROP_TABLE = "DROP TABLE IF EXISTS ${DebtEntry.TABLE_NAME}";
+    private val DROP_TABLE = "DROP TABLE IF EXISTS ${DebtItem.TABLE_NAME}";
 
     // Database name.
     private val DATABASE_NAME = "debts_database";
