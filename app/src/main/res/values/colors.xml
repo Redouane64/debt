@@ -5,4 +5,6 @@
     <color name="colorAccent">#4CAF50</color>
     <color name="debt_item_amount_text">#000000</color>
     <color name="debt_today_color">#F44336</color>
+    <color name="main_menu_header">#154E79</color>
+    <color name="white">#ffffff</color>
 </resources>
