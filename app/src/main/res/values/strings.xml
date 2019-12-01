@@ -3,5 +3,5 @@
     <string name="app_title">My Debts</string>
     <string name="menu_item_main">Main</string>
     <string name="menu_item_mydebts">My debts</string>
-    <string name="menu_item_someones_owes_me">Someone owes me</string>
+    <string name="menu_item_someones_owes_me">Someone Owes Me</string>
 </resources>
