@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar;
     private lateinit var drawerLayout: DrawerLayout;
+    private lateinit var fabButton: View;
     private lateinit var fragmentHelper: FragmentHelper;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         this.toolbar = findViewById(R.id.toolbar);
         this.drawerLayout = findViewById(R.id.drawer_layout);
+        this.fabButton = findViewById(R.id.fab);
         this.fragmentHelper = FragmentHelper(supportFragmentManager);
 
         setSupportActionBar(this.toolbar);
@@ -46,10 +48,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
+        // there is a better way to handle navigation but for simplicity
+        // i have done it this way to have more control.
         when(item.itemId) {
-            R.id.main_menu_item -> this.fragmentHelper.show(MainFragment(), R.id.fragment_host);
-            R.id.my_debts_menu_item -> this.fragmentHelper.show(DebtsFragment(), R.id.fragment_host);
+            R.id.main_menu_item -> this.fragmentHelper.show(MainFragment(), R.id.fragment_host).also {
+                fabButton.visibility = View.VISIBLE;
+            };
+            R.id.my_debts_menu_item -> this.fragmentHelper.show(DebtsFragment(), R.id.fragment_host).also {
+                fabButton.visibility = View.INVISIBLE;
+            };
             R.id.owes_me_menu_item -> 0;
         }
 
