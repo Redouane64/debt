@@ -4,4 +4,12 @@
     <string name="menu_item_main">Main</string>
     <string name="menu_item_mydebts">My debts</string>
     <string name="menu_item_someones_owes_me">Someone Owes Me</string>
+    <string name="text_debtor">I am debtor</string>
+
+    <string-array name="currencies">
+        <item>EUR</item>
+        <item>USD</item>
+        <item>RUB</item>
+        <item>NZD</item>
+    </string-array>
 </resources>
