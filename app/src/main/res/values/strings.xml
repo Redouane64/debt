@@ -5,6 +5,11 @@
     <string name="menu_item_mydebts">My debts</string>
     <string name="menu_item_someones_owes_me">Someone Owes Me</string>
     <string name="text_debtor">I am debtor</string>
+    <string name="hint_creditor_name">Creditor Name</string>
+    <string name="text_return_until">Return Until:</string>
+    <string name="return_date_no_selected">Date Not Selected</string>
+    <string name="save_button">Save</string>
+    <string name="hint_creditor_name">Creditor Name</string>
 
     <string-array name="currencies">
         <item>EUR</item>
