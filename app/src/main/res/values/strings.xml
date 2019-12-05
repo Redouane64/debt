@@ -9,7 +9,6 @@
     <string name="text_return_until">Return Until:</string>
     <string name="return_date_no_selected">Date Not Selected</string>
     <string name="save_button">Save</string>
-    <string name="hint_creditor_name">Creditor Name</string>
 
     <string-array name="currencies">
         <item>EUR</item>

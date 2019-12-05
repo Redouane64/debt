@@ -1,20 +1,16 @@
 package com.github.redouane64.debt
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewConfiguration
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.github.redouane64.debt.internals.FragmentHelper
 import com.github.redouane64.debt.views.debts.DebtsFragment
 import com.github.redouane64.debt.views.main.MainFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,6 +20,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var drawerLayout: DrawerLayout;
     private lateinit var fabButton: View;
     private lateinit var fragmentHelper: FragmentHelper;
+    private lateinit var fab: FloatingActionButton;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme);
@@ -34,6 +31,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         this.drawerLayout = findViewById(R.id.drawer_layout);
         this.fabButton = findViewById(R.id.fab);
         this.fragmentHelper = FragmentHelper(supportFragmentManager);
+        this.fab = findViewById(R.id.fab);
 
         setSupportActionBar(this.toolbar);
 
@@ -42,6 +40,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         nav_view.setNavigationItemSelectedListener(this);
+
+        // attach create debt event listener.
+        fab.setOnClickListener(::createNewDebt)
 
         // start with default main fragment.
         this.fragmentHelper.show(MainFragment(), R.id.fragment_host).apply { toolbar.setTitle(R.string.menu_item_main) };
@@ -63,6 +64,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toolbar.title = item.title;
         drawerLayout.closeDrawer(Gravity.LEFT);
         return true;
+    }
+
+    fun createNewDebt(view: View) {
+        val intent = Intent(this, CreateDebtActivity::class.java);
+        startActivity(intent);
     }
 
 }
