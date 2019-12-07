@@ -1,5 +1,6 @@
 package com.github.redouane64.debt
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
@@ -8,6 +9,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.github.redouane64.debt.internals.FragmentHelper
+import com.github.redouane64.debt.models.DebtItem
+import com.github.redouane64.debt.services.Repository
 import com.github.redouane64.debt.views.debts.DebtsFragment
 import com.github.redouane64.debt.views.main.MainFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,6 +24,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var fabButton: View;
     private lateinit var fragmentHelper: FragmentHelper;
     private lateinit var fab: FloatingActionButton;
+
+    private val repository: Repository = Repository(this);
+
+    private val CREATE_DEBT_RESULT = 1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme);
@@ -66,9 +73,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true;
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        when(resultCode) {
+            Activity.RESULT_OK -> {
+                if(requestCode == CREATE_DEBT_RESULT) {
+                    val debt = data!!.extras!!.getSerializable("debt") as DebtItem;
+                    this.repository.create(debt);
+                }
+            }
+        }
+
+    }
+
     fun createNewDebt(view: View) {
         val intent = Intent(this, CreateDebtActivity::class.java);
-        startActivity(intent);
+        startActivityForResult(intent, CREATE_DEBT_RESULT);
     }
 
 }

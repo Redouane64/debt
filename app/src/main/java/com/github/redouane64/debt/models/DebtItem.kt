@@ -1,10 +1,26 @@
 package com.github.redouane64.debt.models
 
-class DebtItem(val subject : String,
-               val amount : Float,
-               val currency: String,
-               val owed: Int,
-               val date: Long) {
+import java.io.Serializable
+
+class DebtItem : Serializable {
+
+    var subject: String? = null;
+    var amount: Float? = null;
+    var currency: String? = null;
+    var owed: Int? = null;
+    var date: Long? = null;
+
+    constructor() {
+
+    }
+
+    constructor(subject: String, amount: Float, currency: String, owed: Int, date: Long) {
+        this.subject = subject
+        this.amount = amount
+        this.currency = currency
+        this.owed = owed
+        this.date = date
+    }
 
     public var id: Int? = null;
 
