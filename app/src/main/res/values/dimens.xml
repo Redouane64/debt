@@ -6,4 +6,5 @@
     <dimen name="margin">10dp</dimen>
     <dimen name="padding">4dp</dimen>
     <dimen name="margin_horz">32dp</dimen>
+    <dimen name="title_text_size">32dp</dimen>
 </resources>

@@ -1,23 +1,23 @@
 package com.github.redouane64.debt.presenters.create
 
-import com.github.redouane64.debt.models.DebtItem
+import com.github.redouane64.debt.models.Debt
 import com.github.redouane64.debt.presenters.BasePresenter
 import com.github.redouane64.debt.views.create.CreateDebtView
 
 class CreateDebtPresenter(private var view: CreateDebtView?) : BasePresenter {
 
-    private var debt: DebtItem? = DebtItem();
+    private var debt: Debt? = Debt(null, null, null, null, null, null);
 
     fun setDebtor(debtor: String) {
-        debt!!.subject = debtor;
+        debt!!.debtor = debtor;
     }
 
     fun setIamDebtor(value: Int) {
-        debt!!.owed = value;
+        debt!!.debtOrCredit = value;
     }
 
-    fun setDate(value: Long) {
-        debt!!.date = value;
+    fun setDate(value: String) {
+        debt!!.dueDate = value;
     }
 
     fun setCurrency(value: String) {
@@ -28,7 +28,7 @@ class CreateDebtPresenter(private var view: CreateDebtView?) : BasePresenter {
         debt!!.amount = value;
     }
 
-    fun save() : DebtItem {
+    fun save() : Debt {
         return this.debt!!;
     }
 

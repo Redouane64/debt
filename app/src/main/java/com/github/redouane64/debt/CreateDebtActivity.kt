@@ -50,16 +50,12 @@ class CreateDebtActivity : AppCompatActivity(), CreateDebtView, DatePickerDialog
 
     fun save(view: View) = save();
 
-    @SuppressLint("SimpleDateFormat")
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
 
-        val currentCalendar = Calendar.getInstance().apply { set(year, month, dayOfMonth) };
-        val date = Date.from(currentCalendar.toInstant());
-
-        returnDateTextView.text = SimpleDateFormat("dd.MM.YYYY").format(date);
-
-        this.presenter.setDate(date.time);
+        SimpleDateFormat("YYYY.M.d").format(Date()).let {
+            returnDateTextView.text = it;
+            this.presenter.setDate(it);
+        };
     }
 
     override fun setPresenter(presenter: CreateDebtPresenter) {
@@ -86,8 +82,6 @@ class CreateDebtActivity : AppCompatActivity(), CreateDebtView, DatePickerDialog
             setAmount(amountEditText.text.toString().toFloat());
             setCurrency(currencySpinner.selectedItem.toString());
             setIamDebtor(when (iamDebtorSwitch.isChecked) { true -> 1 else -> 0 })
-
-            save();
         }
 
         val returnIntent = Intent().apply {

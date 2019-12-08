@@ -9,8 +9,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.github.redouane64.debt.internals.FragmentHelper
-import com.github.redouane64.debt.models.DebtItem
-import com.github.redouane64.debt.services.Repository
+import com.github.redouane64.debt.models.Debt
+import com.github.redouane64.debt.database.DebtsDatabase
 import com.github.redouane64.debt.views.debts.DebtsFragment
 import com.github.redouane64.debt.views.main.MainFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var fragmentHelper: FragmentHelper;
     private lateinit var fab: FloatingActionButton;
 
-    private val repository: Repository = Repository(this);
+    private lateinit var database: DebtsDatabase;
 
     private val CREATE_DEBT_RESULT = 1;
 
@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        database = DebtsDatabase.getInstance(this);
 
         this.toolbar = findViewById(R.id.toolbar);
         this.drawerLayout = findViewById(R.id.drawer_layout);
@@ -52,7 +54,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fab.setOnClickListener(::createNewDebt)
 
         // start with default main fragment.
-        this.fragmentHelper.show(MainFragment(), R.id.fragment_host).apply { toolbar.setTitle(R.string.menu_item_main) };
+        val mainFragmentInstance = MainFragment();
+        this.fragmentHelper.show(mainFragmentInstance, R.id.fragment_host).apply { toolbar.setTitle(R.string.menu_item_main) };
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -79,12 +82,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when(resultCode) {
             Activity.RESULT_OK -> {
                 if(requestCode == CREATE_DEBT_RESULT) {
-                    val debt = data!!.extras!!.getSerializable("debt") as DebtItem;
-                    this.repository.create(debt);
+                    val debt = data!!.extras!!.getSerializable("debt") as Debt;
+                    this.database.Debts().insert(debt);
                 }
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val mainFragmentInstance = MainFragment();
+        this.fragmentHelper.show(mainFragmentInstance, R.id.fragment_host).apply { toolbar.setTitle(R.string.menu_item_main) };
     }
 
     fun createNewDebt(view: View) {

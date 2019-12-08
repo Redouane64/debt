@@ -9,6 +9,7 @@
     <string name="text_return_until">Return Until:</string>
     <string name="return_date_no_selected">Date Not Selected</string>
     <string name="save_button">Save</string>
+    <string name="todays_text">Today\'s Debts</string>
 
     <string-array name="currencies">
         <item>EUR</item>
