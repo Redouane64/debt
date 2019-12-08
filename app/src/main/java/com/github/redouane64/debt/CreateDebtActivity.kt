@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.github.redouane64.debt.internals.DateHelper
 import com.github.redouane64.debt.presenters.create.CreateDebtPresenter
 import com.github.redouane64.debt.views.create.CreateDebtView
 import java.text.SimpleDateFormat
@@ -52,7 +53,7 @@ class CreateDebtActivity : AppCompatActivity(), CreateDebtView, DatePickerDialog
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
 
-        SimpleDateFormat("YYYY.M.d").format(Date()).let {
+        DateHelper.AsDateString(year, month, dayOfMonth).let {
             returnDateTextView.text = it;
             this.presenter.setDate(it);
         };
